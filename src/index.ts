@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import 'reflect-metadata';
+import cors from 'cors';
 import { parse } from 'csv-parse';
 import expres from 'express';
 import fs from 'fs';
@@ -8,9 +9,9 @@ import * as uid from 'uuidv4';
 
 const app = expres();
 
+app.use(cors());
 app.use(expres.json());
 
-const dt: any[] = [];
 const up = multer({
    dest: './tmp',
 });
@@ -18,6 +19,7 @@ const up = multer({
 app.post('/', up.single('csv'), (req, res) => {
    const { file } = req;
    return new Promise((resolve, reject) => {
+      const dt: any[] = [];
       const stream = fs.createReadStream(file!.path);
       const parseFile = parse({ delimiter: ';' });
 
@@ -25,14 +27,13 @@ app.post('/', up.single('csv'), (req, res) => {
 
       parseFile
          .on('data', line => {
-            const [matricula, nome, demon, cargo, equipe] = line;
+            const [Nota, Dt_programação, MO, cidade, TLE] = line;
             dt.push({
-               matricula,
-               nome,
-               demon,
-               cargo,
-               equipe,
-               mobilidade: false,
+               Nota,
+               Dt_programação,
+               MO,
+               cidade,
+               TLE,
             });
          })
          .on('end', () => {
