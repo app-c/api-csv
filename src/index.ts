@@ -9,8 +9,8 @@ import * as uid from 'uuidv4';
 
 const app = expres();
 
-app.use(cors());
 app.use(expres.json());
+app.use(cors());
 
 const up = multer({
    dest: './tmp',
