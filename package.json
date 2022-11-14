@@ -6,7 +6,8 @@
   "author": "AppCom",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --ignore-watch node_modules src/index.ts"
+   "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files ",
+   "dev": "ts-node-dev -r tsconfig-paths/register --ignore-watch node_modules src/index.ts"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.8",
